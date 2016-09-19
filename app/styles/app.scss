@@ -1,0 +1,26 @@
+$slick-font-path: "/fonts/";
+$slick-arrow-color: blue;
+
+//@import "./normalize";
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+img {
+  max-width: 90%;
+  height: auto;
+}
+
+.slick-prev:before, .slick-next:before {
+  color:rgba(0, 0, 0, 0.2) !important;
+}
+
+.slick-slide {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  min-height: 200px;
+  padding: 20px;
+  box-sizing: border-box;
+}
