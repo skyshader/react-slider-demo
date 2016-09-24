@@ -7,33 +7,41 @@ export default class Slider extends React.Component {
         super();
 
         this.slideData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.slidesToRender = 2;
+        this.dataToShow = [1, 2, 3];
+
+        this.showDataIndex = 0;
+        this.slideDataIndex = this.dataToShow.length;
+        this.slidesToRender = 3;
         this.currentIndex = 0;
+
         this.state = {
-            slides: this.slideData.slice(this.currentIndex, this.slidesToRender)
+            slides: this.dataToShow
         };
 
         this.settings = {
             dots: false,
             arrows: true,
-            infinite: false,
+            infinite: true,
             speed: 500,
             slidesToShow: 1,
             slidesToScroll: 1,
 
             beforeChange: (currentSlide, nextSlide) => {
-                if(nextSlide >= currentSlide)
+                if(nextSlide >= currentSlide || (currentSlide === (this.dataToShow.length - 1) && nextSlide === 0))
                     this.currentIndex++;
                 else if(nextSlide < currentSlide)
                     this.currentIndex--;
             },
 
             afterChange: (currentSlide) => {
-                let slides = this.slideData.slice(0, this.currentIndex + this.slidesToRender);
-                this.setState({slides: slides});
+                if(this.currentIndex > 1) {
+                    this.dataToShow[this.showDataIndex] = this.slideData[this.slideDataIndex];
+                    this.showDataIndex = (this.showDataIndex + 1) % this.dataToShow.length;
+                    this.slideDataIndex = (this.slideDataIndex + 1) % this.slideData.length;
+                    this.setState({slides: this.dataToShow});
+                }
             }
         };
-
     }
 
     render() {
